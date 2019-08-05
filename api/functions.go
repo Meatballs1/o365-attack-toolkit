@@ -80,7 +80,6 @@ func InitializeProfile(accessToken string){
 }
 
 func GetADUsers(accessToken string){
-    dbUsers := []model.ADUser{}
 		messagesResponse := CallApiMethod("GET","/users",accessToken,"",nil,"")
 		users := model.ADUsers{}
 		json.Unmarshal([]byte(messagesResponse), &users)

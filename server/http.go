@@ -19,6 +19,7 @@ func StartIntServer(config model.Config){
 
 	route.HandleFunc("/",GetUsers).Methods("GET")
 	route.HandleFunc(model.IntAbout,GetAbout).Methods("GET")
+	route.HandleFunc("/adusers",GetADUsers).Methods("GET")
 
 	// Routes for Users
 	route.HandleFunc(model.IntGetAll,GetUsers).Methods("GET")

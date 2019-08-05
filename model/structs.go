@@ -165,6 +165,7 @@ type Page struct{
 	Title string
 	Email string
 	UserList []User
+	ADUserList []ADUser
 	EmailList []Mail
 	FileList []string
 	Mail Mail

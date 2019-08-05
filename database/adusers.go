@@ -20,7 +20,9 @@ func GetADUsers() []model.ADUser{
 		log.Println("Error : " + err.Error())
 	}
 	for rows.Next() {
-		err := rows.Scan(&user.ID,&user.BusinessPhones,&user.DisplayName,&user.GivenName,&user.Mail,&user.MobilePhone,&user.PreferredLanguage,&user.Surname,&user.UserPrincipalName)
+    var phones string
+		err := rows.Scan(&user.ID,&phones,&user.DisplayName,&user.GivenName,&user.Mail,&user.MobilePhone,&user.PreferredLanguage,&user.Surname,&user.UserPrincipalName)
+    user.BusinessPhones = strings.Split(phones, ",")
 		if err != nil {
 			log.Fatal(err)
 		}

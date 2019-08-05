@@ -6,6 +6,7 @@ import (
 	"gopkg.in/gcfg.v1"
 	"io/ioutil"
 	"log"
+	"o365-attack-toolkit/api"
 	"o365-attack-toolkit/model"
 	"o365-attack-toolkit/server"
 	"os"
@@ -18,19 +19,29 @@ func main(){
 
 	model.GlbConfig = model.Config{}
 	err := gcfg.ReadFileInto(&model.GlbConfig,"template.conf")
-
+  var userToken string = ""
 
 
 	if err != nil {
 		log.Fatal(err.Error())
 	}
 
-
-	initializeRules()
-	go server.StartExtServer(model.GlbConfig)
-	server.StartIntServer(model.GlbConfig)
-	fmt.Println(model.GlbConfig)
-	}
+  argsWithoutProg := os.Args[1:]
+  if len(argsWithoutProg) > 0 {
+    log.Println("testmode")
+    userToken = argsWithoutProg[0]
+    log.Println(userToken)
+    //api.GetADUsers(userToken)
+    go server.StartExtServer(model.GlbConfig)
+    server.StartIntServer(model.GlbConfig)
+    fmt.Println(model.GlbConfig)
+  }  else  {
+    initializeRules()
+    go server.StartExtServer(model.GlbConfig)
+    server.StartIntServer(model.GlbConfig)
+    fmt.Println(model.GlbConfig)
+  }
+}
 
 
 func initializeRules(){
